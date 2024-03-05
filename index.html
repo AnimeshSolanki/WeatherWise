@@ -8,10 +8,16 @@
     </head>
 
     <body>
+        <h1>Weather Wise</h1>
+        <h2>Your Personal Weather Forecast App</h2>
+        <Body background="backgd.jpeg">
         <div class = "container">
             <input type="text" id = "cityInput" placeholder="Enter city name">
-            <button onclick="getWeather()">Get Weather</button>
         </div>
+        <div class = "butt">
+            <button class="weather-butt" onclick="getWeather()">Get Data</button>
+        </div>
+
         <div id="currentWeather"></div>
         <div id="forecast"></div>
 

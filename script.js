@@ -1,17 +1,17 @@
 function getWeather() {
     const city = document.getElementById('cityInput').value;
-    fetch(`http://localhost:3000/current?city=${city}`)
+    fetch(`http://localhost:5500/current?city=${city}`)
         .then(response => response.json())
         .then(data => {
-        displayCurrentWeather(data);
-        return fetch(`http://localhost:3000/forecast?city=${city}`);
+        displayWeather(data);
+        return fetch(`http://localhost:5500/forecast?city=${city}`);
         })
         .then(response => response.json())
         .then(data => displayForecast(data))
         .catch(error => console.log('Error fetching data:', error));
-    }
-  
-function displayCurrentWeather(data) {
+}
+
+function displayWeather(data) {
     const currentWeatherContainer = document.getElementById('currentWeather');
     currentWeatherContainer.innerHTML = `
       <h2>Current Weather in ${data.name}</h2>
@@ -34,14 +34,14 @@ function displayForecast(data) {
       const dateString = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
       const weatherDescription = forecast.weather[0].description;
       const icon = getWeatherIcon(weatherDescription);
-  
+
       forecastContainer.innerHTML += `
-        <div>
-          <p>${dateString}</p>
-          <p>Temperature: ${forecast.main.temp}°C</p>
-          <img src="${icon}" alt="Weather Icon">
-        </div>
-      `;
+            <div class="forecast-item">
+                <p>${dateString}</p>
+                <p>Temperature: ${forecast.main.temp}°C</p>
+                <img src="${icon}" alt="Weather Icon">
+            </div>
+        `;
     }
   
     const averageTemp = totalTemp / (data.list.length / 8);
@@ -59,4 +59,3 @@ function getWeatherIcon(description) {
       return 'default.png';
     }
 }
-  
